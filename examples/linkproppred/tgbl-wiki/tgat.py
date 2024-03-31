@@ -138,7 +138,7 @@ def test(loader, neg_sampler, split_mode):
             assoc[n_id] = torch.arange(n_id.size(0), device=device)
             
             z = torch.rand((n_id.size(0), EMB_DIM), device=device)  # since the datasets mostly do not have node features
-            z = gnn(z, data.t[edge_index[0]].to(device), edge_index, data.t[e_id].to(device), data.msg[e_id].to(device))
+            z = model['gnn'](z, data.t[edge_index[0]].to(device), edge_index, data.t[e_id].to(device), data.msg[e_id].to(device))
 
             y_pred = model['link_pred'](z[assoc[src]], z[assoc[dst]])
             
